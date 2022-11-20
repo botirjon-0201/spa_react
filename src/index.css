@@ -39,3 +39,51 @@ nav {
 img {
   max-width: 100%;
 }
+
+/* textarea,
+input {
+  width: 100%;
+  padding: 0.9rem;
+  margin: 0.6rem 0;
+  border: 1px solid #f0e9ff;
+  border-radius: 5px;
+  padding-left: 1.1rem;
+  font-size: 1rem;
+  background: transparent;
+  color: #495057;
+  box-sizing: border-box;
+}
+
+textarea:focus,
+input:focus {
+  outline: 0;
+}
+
+.half-flex {
+  display: flex;
+}
+
+.contact__firstname {
+  padding-right: 0.94rem;
+  flex: 1;
+}
+
+.contact__email {
+  padding-left: 0.94rem;
+  flex: 1;
+}
+
+.contact__send {
+  margin-top: 1.87rem;
+}
+
+@media only screen and (max-width: 991px) {
+  .half-flex {
+    flex-direction: column;
+  }
+
+  .contact__firstname,
+  .contact__email {
+    padding: 0;
+  }
+} */
