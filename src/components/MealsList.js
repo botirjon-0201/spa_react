@@ -1,6 +1,7 @@
 import MealItem from "./MealItem";
 
-export default function MealsList({ meals } = []) {
+export default function MealsList({ meals }) {
+  
   return (
     <div className="list">
       {meals.map((meal) => (
