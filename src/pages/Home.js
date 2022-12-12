@@ -1,52 +1,30 @@
-import { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useEffect, useContext } from "react";
 import CategoryList from "../components/CategoryList";
 import Loader from "../components/Loader";
 import Search from "../components/Search";
 import { getAllCategories } from "./api";
+import { MainContext } from "../context";
 
 export default function Home() {
-  const [catalog, setCatalog] = useState([]);
-  const [filteredCatalog, setFilteredCatalog] = useState([]);
-
-  const { pathname, search } = useLocation();
-  const { push } = useHistory();
-
-  const handleSearch = (str) => {
-    setFilteredCatalog(
-      catalog.filter((item) =>
-        item.strCategory.toLowerCase().startsWith(str.toLowerCase())
-      )
-    );
-    push({
-      pathname,
-      search: `?search=${str}`,
-    });
-  };
+  const [
+    { catalog, setCatalog, setFilteredCatalog },
+    pathname,
+    search,
+    push,
+    goBack,
+  ] = useContext(MainContext);
 
   useEffect(() => {
     getAllCategories().then((data) => {
       setCatalog(data.categories);
-      setFilteredCatalog(
-        search
-          ? data.categories.filter((item) =>
-              item.strCategory
-                .toLowerCase()
-                .includes(search.split("=")[1].toLowerCase())
-            )
-          : data.categories
-      );
+      setFilteredCatalog(data.categories);
     });
   }, [search]);
 
   return (
     <>
-      <Search cb={handleSearch} />
-      {!catalog.length ? (
-        <Loader />
-      ) : (
-        <CategoryList catalog={filteredCatalog} />
-      )}
+      <Search />
+      {!catalog.length ? <Loader /> : <CategoryList />}
     </>
   );
 }

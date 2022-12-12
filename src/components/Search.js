@@ -1,13 +1,8 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { MainContext } from "../context";
 
-export default function Search({ cb = Function.prototype }) {
-  const [value, setValue] = useState("");
-
-  const handleKey = (evn) => {
-    if (evn.key === "Enter") handleSubmit();
-  };
-
-  const handleSubmit = () => cb(value);
+export default function Search() {
+  const [{ value, setValue, handleSearch }] = useContext(MainContext);
 
   return (
     <div className="row">
@@ -16,17 +11,19 @@ export default function Search({ cb = Function.prototype }) {
           id="search-field"
           type="search"
           placeholder="Search..."
-          onKeyDown={handleKey}
+          onKeyDown={(evn) => {
+            if (evn.key === "Enter") handleSearch(value);
+          }}
           onChange={(evn) => {
             setValue(evn.target.value);
-            handleSubmit();
+            handleSearch(value);
           }}
           value={value}
         />
         <button
           className="btn"
           style={{ position: "absolute", top: 0, right: 0 }}
-          onClick={handleSubmit}
+          onClick={() => handleSearch(value)}
         >
           Search
         </button>

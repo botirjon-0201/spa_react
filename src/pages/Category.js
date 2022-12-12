@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import MealsList from "../components/MealsList";
+import { MainContext } from "../context";
 import { getFilterCategory } from "./api";
 
 export default function Category() {
+  const [{ meals, setMeals }] = useContext(MainContext);
   const { name } = useParams();
-  const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     getFilterCategory(name).then((data) => setMeals(data.meals));
   }, [name]);
 
-  return <>{!meals.length ? <Loader /> : <MealsList meals={meals} />}</>;
+  return <>{!meals.length ? <Loader /> : <MealsList />}</>;
 }

@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
+import { MainContext } from "../context";
 import { getMealById } from "./api";
 
 export default function Reciepe() {
-  const [reciepe, setReciepe] = useState([]);
-  const [showReciepe, setShowRecipe] = useState(false);
+  const [
+    { reciepe, setReciepe, showReciepe, setShowReciepe },
+    pathname,
+    search,
+    push,
+    goBack,
+  ] = useContext(MainContext);
   const { id } = useParams();
-  const { goBack } = useHistory();
-
-  const handleReciepeShow = () => {
-    setShowRecipe(!showReciepe);
-  };
 
   useEffect(() => {
     getMealById(id).then((data) => setReciepe(data.meals[0]));
@@ -36,7 +37,7 @@ export default function Reciepe() {
 
           <p>{reciepe.strInstructions}</p>
 
-          <button className="btn" onClick={handleReciepeShow}>
+          <button className="btn" onClick={setShowReciepe}>
             Show Reciepe
           </button>
 

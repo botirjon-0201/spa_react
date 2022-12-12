@@ -1,11 +1,15 @@
+import { useContext } from "react";
+import { MainContext } from "../context";
 import CategoryItem from "./CategoryItem";
 
-export default function CategoryList({ catalog }) {
+export default function CategoryList() {
+  const [{ filteredCatalog }] = useContext(MainContext);
+
   return (
     <div>
-      {catalog.length ? (
+      {filteredCatalog.length ? (
         <div className="list">
-          {catalog.map((item) => (
+          {filteredCatalog.map((item) => (
             <CategoryItem key={item.idCategory} {...item} />
           ))}
         </div>
