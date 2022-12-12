@@ -40,6 +40,22 @@ img {
   max-width: 100%;
 }
 
+.cart {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+  z-index: 99;
+  padding: 1rem;
+}
+
+@media (min-width: 767px) {
+  .cart {
+    top: 5rem;
+    bottom: unset;
+  }
+}
+
 /* textarea,
 input {
   width: 100%;

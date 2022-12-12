@@ -15,7 +15,7 @@ export default function Home() {
   const handleSearch = (str) => {
     setFilteredCatalog(
       catalog.filter((item) =>
-        item.strCategory.toLowerCase().includes(str.toLowerCase())
+        item.strCategory.toLowerCase().startsWith(str.toLowerCase())
       )
     );
     push({

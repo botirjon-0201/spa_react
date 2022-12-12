@@ -4,14 +4,10 @@ export default function Search({ cb = Function.prototype }) {
   const [value, setValue] = useState("");
 
   const handleKey = (evn) => {
-    if (evn.key === "Enter") {
-      handleSubmit();
-    }
+    if (evn.key === "Enter") handleSubmit();
   };
 
-  const handleSubmit = () => {
-    cb(value);
-  };
+  const handleSubmit = () => cb(value);
 
   return (
     <div className="row">
@@ -21,7 +17,10 @@ export default function Search({ cb = Function.prototype }) {
           type="search"
           placeholder="Search..."
           onKeyDown={handleKey}
-          onChange={(evn) => setValue(evn.target.value)}
+          onChange={(evn) => {
+            setValue(evn.target.value);
+            handleSubmit();
+          }}
           value={value}
         />
         <button
