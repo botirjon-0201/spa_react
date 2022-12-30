@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { MainContext } from "../context";
+import { useSelector } from "react-redux";
 import CategoryItem from "./CategoryItem";
 
 export default function CategoryList() {
-  const [{ filteredCatalog }] = useContext(MainContext);
+  const { filteredCatalog } = useSelector((state) => state.catalog);
 
   return (
     <div>

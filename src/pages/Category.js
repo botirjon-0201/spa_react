@@ -1,17 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import MealsList from "../components/MealsList";
-import { MainContext } from "../context";
-import { getFilterCategory } from "./api";
+import { setMeals } from "../redux/reducers/meal_slice";
+import mealService from "../service/meal_service";
 
 export default function Category() {
-  const [{ meals, setMeals }] = useContext(MainContext);
+  const { meals } = useSelector((state) => state.meal);
+  const dispatch = useDispatch();
   const { name } = useParams();
 
   useEffect(() => {
-    getFilterCategory(name).then((data) => setMeals(data.meals));
+    mealService
+      .getFilterCategory(name)
+      .then((data) => dispatch(setMeals(data.meals)));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
-  return <>{!meals.length ? <Loader /> : <MealsList />}</>;
+  return <>{!meals.length ? <Loader /> : <MealsList meals={meals} />}</>;
 }

@@ -7,23 +7,20 @@ import Home from "./pages/Home";
 import Category from "./pages/Category";
 import NotFound from "./pages/NotFound";
 import Reciepe from "./pages/Reciepe";
-import { ContextProvider } from "./context";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <main className="container content">
-        <ContextProvider>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/contacts" component={Contact} />
-            <Route path="/category/:name" component={Category} />
-            <Route path="/meal/:id" component={Reciepe} />
-            <Route component={NotFound} />
-          </Switch>
-        </ContextProvider>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/contacts" component={Contact} />
+          <Route path="/category/:name" component={Category} />
+          <Route path="/meal/:id" component={Reciepe} />
+          <Route component={NotFound} />
+        </Switch>
       </main>
       <Footer />
     </div>

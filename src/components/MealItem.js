@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function MealItem(props) {
   const { strMeal, strMealThumb, idMeal } = props;
+
   return (
     <div className="card">
       <div className="card-image">

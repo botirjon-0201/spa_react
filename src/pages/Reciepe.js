@@ -1,21 +1,21 @@
-import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 import Loader from "../components/Loader";
-import { MainContext } from "../context";
-import { getMealById } from "./api";
+import { setReciepe, setShowReciepe } from "../redux/reducers/reciepe_slice";
+import mealService from "../service/meal_service";
 
 export default function Reciepe() {
-  const [
-    { reciepe, setReciepe, showReciepe, setShowReciepe },
-    pathname,
-    search,
-    push,
-    goBack,
-  ] = useContext(MainContext);
+  const { reciepe, showReciepe } = useSelector((state) => state.reciepe);
+  const dispatch = useDispatch();
   const { id } = useParams();
+  const { goBack } = useHistory();
 
   useEffect(() => {
-    getMealById(id).then((data) => setReciepe(data.meals[0]));
+    mealService
+      .getMealById(id)
+      .then((data) => dispatch(setReciepe(data.meals[0])));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
@@ -37,7 +37,10 @@ export default function Reciepe() {
 
           <p>{reciepe.strInstructions}</p>
 
-          <button className="btn" onClick={setShowReciepe}>
+          <button
+            className="btn"
+            onClick={() => dispatch(setShowReciepe(!showReciepe))}
+          >
             Show Reciepe
           </button>
 
